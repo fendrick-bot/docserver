@@ -1,0 +1,16 @@
+#main-content{
+    margin: 15px 15px;
+    margin-top: 90px;
+    width: 470px;
+    height: calc(100vh - 180px);
+    border-radius: 10px;
+    padding: 10px;
+    overflow-y: auto;
+    background-color: #ffffff;
+}
+.documentbox{
+    height: 50px;
+    border: 1px solid black;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}

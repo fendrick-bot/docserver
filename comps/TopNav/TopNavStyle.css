@@ -1,0 +1,31 @@
+#nav_main {
+  background-color: rgb(36, 36, 36);
+  width: 470px;
+  position: absolute;
+  top: 0;
+  margin: 15px 15px;
+  /* background: rgb(210, 210, 210); */
+  font-weight: 500;
+  font-size: 22px;
+  padding: 12px 15px;
+  color: white;
+  border-radius: 11px;
+  max-height: 70px;
+}
+#logo{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  cursor: pointer;
+}
+#logo h1{
+  font-size: 22px;
+}
+
+#logo_img{
+  padding: 5px;
+  width: fit-content;
+  font-size: 32px;
+  border-radius: 10px;
+  border: 1px solid white;
+}
