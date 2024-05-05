@@ -18,14 +18,7 @@ export default function RootLayout({ children }) {
         style={{ display: "flex", justifyContent: "center" }}
       >
         <div
-          style={{
-            backgroundColor: "white",
-            width: "500px",
-            boxShadow: "-2px 7px 30px gray",
-            height: "100vh",
-            boxSizing:"border-box",
-            overflow:"hidden",
-          }}
+          id="main-wrapper"
         >
           <TopNav/>
 

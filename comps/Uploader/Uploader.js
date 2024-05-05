@@ -4,6 +4,8 @@ import { BsFillFileEarmarkPdfFill } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+// import { uploadFile } from "@/helper/CloudUpload";
+
 export function Uploader() {
   // const fileInput = document.querySelector("#fileInput");
   // const dropZoon = document.querySelector("#dropZoon");
@@ -105,7 +107,7 @@ export function Uploader() {
 
   const [data, SetData] = useState({
     Title: "Demo File",
-    path : null,
+    path: null,
     owner: "Fendrick",
   });
 
@@ -114,23 +116,57 @@ export function Uploader() {
       console.log("no file selected");
       return;
     }
-    const fd = new FormData();
-    fd.set('file', file);
-    SetData((prevData) =>{return{ ...prevData , path: filepath }; })
-    await axios
-      .post("/api/upload", fd, {
+    // const res  = uploadFile(file);
+    // console.log(res + "uploaded");
+
+    // const cloudName = process.env.cloudName;
+
+    const url = `https://api.cloudinary.com/v1_1/djtt5oivu/image/upload`;
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("cloud_name", "djtt5oivu");
+    formData.append("upload_preset", "qnco6ewl");
+
+    try {
+
+      await axios
+      .post(url, formData, {
         onUploadProgress: (progressEvent) => {
           setProgress((prevState) => {
-            return { ...prevState, pc: progressEvent.progress * 100 };
+            return { ...prevState, pc: Math.round(progressEvent.progress * 100, 100)  };
           });
           console.log(progressEvent.progress * 100);
-        },
-        headers: {
-          title: "This is a demo title of the doc",
         },
       })
       .then((res) => console.log(res))
       .catch((err) => console.error(err));
+    }catch{}
+
+    // await fetch(url, {
+    //   method: "POST",
+    //   body: formData,
+    // }).then((response) => {
+    //   console.log(response.text);
+    //   // return response.text();
+    // });
+
+    // const fd = new FormData();
+    // fd.set('file', file);
+    // SetData((prevData) =>{return{ ...prevData , path: filepath }; })
+    // await axios
+    //   .post("/api/upload", fd, {
+    //     onUploadProgress: (progressEvent) => {
+    //       setProgress((prevState) => {
+    //         return { ...prevState, pc: progressEvent.progress * 100 };
+    //       });
+    //       console.log(progressEvent.progress * 100);
+    //     },
+    //     headers: {
+    //       title: "This is a demo title of the doc",
+    //     },
+    //   })
+    //   .then((res) => console.log(res))
+    //   .catch((err) => console.error(err));
   }
 
   function abortUpload() {
@@ -189,7 +225,7 @@ export function Uploader() {
                 type="file"
                 id="fileInput"
                 class="drop-zoon__file-input"
-                accept="file"
+                accept=".pdf"
                 onChange={(e) => {
                   setFile(e.target.files[0]);
                   // const path =  (window.URL || window.webkitURL).createObjectURL(file);
