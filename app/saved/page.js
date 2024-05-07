@@ -31,8 +31,8 @@ export default function Saved() {
 
             {
                 data.map((item)=>(
-                    <div>
-                    <Link href={`/document/${item.docUrl}`}>
+                    <div key={"newDoc"}>
+                    <Link href={`/document/${item.docUrl}`} key={"newDoc"}>
                         <h1 key={"newDoc"}>{item.title}</h1>
                         <p key={"newDoc"}>{item.owner} <br /> {item.size} </p>
                         <br />
