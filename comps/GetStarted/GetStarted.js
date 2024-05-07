@@ -21,11 +21,10 @@ export function GetStarted(props){
         localStorage.setItem("newUser", false);
         setUser(false);
     }
-
     return(
         (newUser)?<div id="splash-page">
             <div id="big-logo">
-                <Image src={mainLogo}/>
+                <Image src={mainLogo} unoptimized/> 
             </div>
             <br />
             <br />
