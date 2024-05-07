@@ -14,6 +14,11 @@ const docSchema = new mongoose.Schema({
         type:String,
         required: [true,  "please provide a owner name"],
         default : "Fendrick"
+    },
+    size:{
+        type:String,
+        required:true,
+        default:"100KB"
     }
 })
 

@@ -1,14 +1,51 @@
+'use client'
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { News_Cycle } from "next/font/google";
+import toast from "react-hot-toast";
+
 export default function saved() {
+  
+  const [data, setData] = useState([]);
+    useEffect(()=>{
+        async function retriveData(){
+          let savedDoc = JSON.parse(localStorage.getItem("saved")) || [];
+          setData(savedDoc);
+        }
+        retriveData();
+    }, [])
+
+    function handleRemove(item){
+      let savedDoc = JSON.parse(localStorage.getItem("saved")) || [];
+      const newSaved = savedDoc.filter((elem) => elem.docUrl !== item.docUrl);
+      setData(newSaved);
+      localStorage.setItem("saved", JSON.stringify(newSaved));
+      toast.success("Removed from saved!")
+  }
   return (
+    
     <main>
       <br /><br /><br /><br />
-      <embed src='https://res.cloudinary.com/djtt5oivu/image/upload/v1714826111/a3mjkvu0htz0uwu8m2si.pdf' type="application/pdf"  width= "100%" height= "650px" title="New Pdf" style={{background:"white"}}/>
-      {/* <iframe
-        src="http://res.cloudinary.com/djtt5oivu/image/upload/v1714826111/a3mjkvu0htz0uwu8m2si.pdf"
-        frameborder="0"
-        typeof="pdf"
-        style={{ width: "450px", height: "600px" , marginTop:"90px"}}
-      ></iframe> */}
+      <h1>Saved Document List</h1>
+            <br />
+
+            {
+                data.map((item)=>(
+                    <div>
+                    <Link href={`/document/${item.docUrl}`}>
+                        <h1>{item.title}</h1>
+                        <p>{item.owner} <br /> {item.size} </p>
+                        <br />
+                        <br />
+                    </Link>
+                    <br />
+                        <button onClick={()=> handleRemove(item)} >remove</button>
+
+                    </div>
+
+                ))
+            }
+    
     </main>
   );
 }

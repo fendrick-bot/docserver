@@ -17,6 +17,8 @@
 }
 
 body {
+  display: flex;
+  justify-content: center;
 }
 #main-wrapper{
   background-color: "white";
@@ -34,6 +36,5 @@ body {
     width: 100vw;
     height: 100vh;
     background-color: #ffffff;
-  
   }
 }
