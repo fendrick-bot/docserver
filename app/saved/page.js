@@ -4,7 +4,7 @@ import Link from "next/link";
 import { News_Cycle } from "next/font/google";
 import toast from "react-hot-toast";
 
-export default function saved() {
+export default function Saved() {
   
   const [data, setData] = useState([]);
     useEffect(()=>{
