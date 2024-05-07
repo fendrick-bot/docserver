@@ -33,13 +33,13 @@ export default function Saved() {
                 data.map((item)=>(
                     <div>
                     <Link href={`/document/${item.docUrl}`}>
-                        <h1>{item.title}</h1>
-                        <p>{item.owner} <br /> {item.size} </p>
+                        <h1 key={"newDoc"}>{item.title}</h1>
+                        <p key={"newDoc"}>{item.owner} <br /> {item.size} </p>
                         <br />
                         <br />
                     </Link>
                     <br />
-                        <button onClick={()=> handleRemove(item)} >remove</button>
+                        <button key={"newDoc"} onClick={()=> handleRemove(item) } >remove</button>
 
                     </div>
 
