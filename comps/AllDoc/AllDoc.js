@@ -38,7 +38,7 @@ export function AllDoc() {
 
   return (
     <div id="main-content">
-      <h1>Document List</h1>
+      <h2 style={{width:'88%',textAlign:'left'}}>All Files</h2>
       <br />
       <div id="pdf-collection">
         {data.map((item) => (
