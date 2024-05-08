@@ -2,7 +2,8 @@
 import "@/comps/BottomNav/NavStyle.css";
 import { GoHomeFill } from "react-icons/go";
 import { BiSolidCloudUpload } from "react-icons/bi";
-import { FaBookmark } from "react-icons/fa6";
+import { FaStar } from "react-icons/fa";
+import { MdCloudUpload } from "react-icons/md";
 import { HiUser } from "react-icons/hi2";
 import { useEffect, useState } from "react";
 import Link from "next/link";
@@ -19,8 +20,9 @@ export function BottomNav() {
   }, []);
   return (
     <nav>
+      <hr />
       <div className="menu">
-        <Link href={"/"}>
+        <Link href={"/"} className="nav-btns">
           <div
             className={active == 1 ? "menu-item active" : "menu-item inactive"}
             onClick={() => {
@@ -33,7 +35,7 @@ export function BottomNav() {
             <div className="menu-item__text">Home</div>
           </div>
         </Link>
-        <Link href={"/upload"}>
+        <Link href={"/upload"} className="nav-btns" > 
           <div
             className={active == 2 ? "menu-item active" : "menu-item inactive"}
             onClick={() => {
@@ -41,12 +43,13 @@ export function BottomNav() {
             }}
           >
             <div className="menu-item__icon">
-              <BiSolidCloudUpload />
+            <MdCloudUpload />
+
             </div>
             <div className="menu-item__text">Upload</div>
           </div>
         </Link>
-        <Link href={"/saved"}>
+        <Link href={"/saved"} className="nav-btns">
           <div
             className={active == 3 ? "menu-item active" : "menu-item inactive"}
             onClick={() => {
@@ -54,12 +57,13 @@ export function BottomNav() {
             }}
           >
             <div className="menu-item__icon">
-              <FaBookmark />
+            <FaStar />
+
             </div>
             <div className="menu-item__text">Saved</div>
           </div>
         </Link>
-        <Link href={"/profile"}>
+        <Link href={"/profile"} className="nav-btns">
           <div
             className={active == 4 ? "menu-item active" : "menu-item inactive"}
             onClick={() => {

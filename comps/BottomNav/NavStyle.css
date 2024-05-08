@@ -4,44 +4,54 @@
   box-sizing: border-box;
 }
 nav{
-  width: 450px;
+  width: 500px;
   position: fixed;
   bottom: 0;
-  margin: 12px 25px;
   z-index: 10;
+  background: #ffffff;
+  padding: 0px 25px 5px 25px;
   /* border-radius: 18px;
   box-shadow: 2px 2px 15px gray; */
+}
+nav hr{
+  color: #000000;
+}
+
+.nav-btns{
+  text-decoration: none;
+  color: rgb(0, 0, 0);
 }
 
 .menu {
   /* background: #9868ff; */
   width: 100%;
-  padding: 17px 10px;
+  padding: 13px 22px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  color: white;
+  justify-content: space-between;
+  color: rgb(1, 1, 1);
 }
 .menu-item {
-  background-color: rgb(36, 36, 36);
+  background-color: #bcbbf5;
   display: flex;
   align-items: center;
   cursor: pointer;
-  margin: 0 22px;
-  padding: 10px;
-  border-radius: 22px;
+  padding: 10px 15px;
+  border-radius: 16px;
   transition: 0.4s ease;
-  box-shadow: 2px 2px 5px rgb(169, 169, 169);
-}
-.menu-item:last-child {
-  margin-right: 0px;
+  /* box-shadow: 2px 2px 5px rgb(78, 120, 255); */
 }
 .menu-item.inactive {
   border-radius: 8px;
-  background-color: rgb(210, 210, 210) !important;
+  background-color: white;
+  border: none;
+  /* background-color: rgb(192, 179, 255) !important; */
 }
 .menu-item.inactive svg {
-  color: #000 !important;
+  color: #303030 !important;
+}
+.menu-item.inactive svg:hover {
+  color: #6361cd !important;
 }
 .menu-item.inactive .menu-item__text {
   min-width: 0px;
@@ -62,6 +72,7 @@ nav{
   font-size: 0px;
 }
 .menu-item__icon svg {
-  width: 25px;
-  height: 25px;
+  width: 30px;
+  height: 30px;
 }
+

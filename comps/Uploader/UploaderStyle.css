@@ -1,8 +1,5 @@
 /* General Styles */
 
-* {
-  box-sizing: border-box;
-}
 
 :root {
   --clr-white: rgb(255, 255, 255);
@@ -14,8 +11,7 @@
 }
 
 #uploadDiv {
-  margin: 0;
-  padding: 0;
+  width: 500px;
   background-color: var(--clr-light);
   color: var(--clr-black);
   font-size: 1.125rem;
@@ -24,9 +20,6 @@
   justify-content: center;
   align-items: center;
 }
-
-/* End General Styles */
-
 /* Upload Area */
 .upload-area {
   width: 100%;

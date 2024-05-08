@@ -18,7 +18,11 @@ export function GetStarted(props) {
     if (localStorage.getItem("newUser") != null) {
       setUser(false);
     }
-    setLoading(false);
+    function myStopFunction() {
+        setLoading(false);
+        clearTimeout(myTimeout);
+      }
+      const myTimeout = setTimeout(myStopFunction, 2000);
   }, []);
   function removeSplash() {
     localStorage.setItem("newUser", false);

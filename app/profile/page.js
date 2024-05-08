@@ -1,8 +1,9 @@
 
+import "@/app/profile/profileStyle.css"
 export default function Profile() {
   return (
-    <main >
+    <div id="profile-main-div" >
 
-    </main>
+    </div>
   );
 }

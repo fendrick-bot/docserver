@@ -1,4 +1,5 @@
 'use client'
+import "@/app/saved/savedStyle.css"
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { News_Cycle } from "next/font/google";
@@ -24,7 +25,7 @@ export default function Saved() {
   }
   return (
     
-    <main>
+    <div id="saved-main-div">
       <br /><br /><br /><br />
       <h1>Saved Document List</h1>
             <br />
@@ -46,6 +47,6 @@ export default function Saved() {
                 ))
             }
     
-    </main>
+    </div>
   );
 }

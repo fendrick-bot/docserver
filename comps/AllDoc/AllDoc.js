@@ -49,9 +49,7 @@ export function AllDoc(){
                     </Link>
                     <br />
                         <button onClick={()=> handleSave(item)} >save</button>
-
                     </div>
-
                 ))
             }
         </div>
