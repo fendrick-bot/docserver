@@ -11,14 +11,14 @@
     box-shadow: 1px 4px 10px rgb(180, 180, 180);
     cursor: pointer;
     margin: 7px 0;
-    max-width: 400px;
+    max-width: 380px;
 }
 #main-pdf-box:hover{
     box-shadow: 1px 4px 17px rgb(161, 161, 161);
 }
 .pdfbox-title{
     font-weight: 300;
-    max-width: 260px;
+    max-width: 240px;
     overflow: hidden;
 }
 .pdfbox-logo{
