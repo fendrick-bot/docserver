@@ -1,15 +1,26 @@
 #main-content{
+    width: 460px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
     margin: 15px 15px;
     margin-top: 90px;
     height: calc(100vh - 180px);
     border-radius: 10px;
     padding: 10px;
     overflow-y: auto;
-    background-color: #eaeaea;
+    background-color: #ffffff;
 }
 .documentbox{
     height: 50px;
     border: 1px solid black;
     margin-bottom: 10px;
     border-radius: 10px;
+}
+#pdf-collection{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    overflow: auto;
 }
