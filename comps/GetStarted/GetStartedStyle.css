@@ -11,7 +11,9 @@
 #big-logo{
     /* min-height: 400px; */
     width: fit-content;
-    height: fit-content;
+    min-height: 300px;
+    height: 80%;
+    max-height: 400px;
     
     overflow: hidden;
     border-radius: 20px;
@@ -30,6 +32,7 @@
     font-size: 1rem;
     color: rgb(85, 85, 85);
 }
+
 #splash-start-button{
     max-width: 440px;
     position: absolute;
@@ -47,3 +50,9 @@
 #splash-start-button:hover{
     background-color: #7e65e5;
 }
+
+@media only screen and (max-width: 500px) {
+    #big-logo{
+      height: 320px;
+    }
+  }
