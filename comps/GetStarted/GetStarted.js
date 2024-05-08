@@ -52,7 +52,7 @@ export function GetStarted(props) {
       </button>
     </div>
   ) : (
-    <div>
+    <div id="home-page-div">
       <TopNav />
       {props.data}
       <BottomNav />
