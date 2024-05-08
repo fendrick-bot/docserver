@@ -1,0 +1,82 @@
+
+#ripple-div{
+    width: 100%;
+    height: 100%
+}
+#header{
+  min-height: 100vh;
+  background-color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#min-logo{
+    position: absolute;
+    /* left: 43%;
+    bottom: 45%; */
+    z-index: 40;
+    border-radius: 50%;
+    border: 1px solid rgb(206, 206, 255);
+}
+
+.ripple-1,
+.ripple-2,
+.ripple-3,
+.ripple-4,
+.ripple-5{
+  height: 1px;
+  width: 1px;
+  /* position: absolute; */
+  left: 50%;
+  bottom: 50%;
+  background-color: #7b67ff;
+  border-radius: 50%;
+  transform: translate3d(-50%, 50%, 0);
+  animation-name: ripple;
+  animation-duration: 6s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-out;
+  will-change: transform, opacity;
+}
+
+.ripple-1{
+  animation-delay: 0s;
+}
+
+.ripple-2{
+  animation-delay: 1s;
+}
+
+.ripple-3{
+  animation-delay: 2s;
+}
+
+.ripple-4{
+  animation-delay: 3s;
+}
+
+.ripple-4{
+  animation-delay: 4s;
+}
+
+.ripple-5{
+  animation-delay: 5s;
+}
+
+#main{
+  height: 4000px;
+  background-color: #1c7fca;
+}
+
+@keyframes ripple{
+  0%{
+    transform: translate3d(-50%, 50%, 0) scale(0);
+    opacity: .33;
+  }
+  100%{
+    transform: translate3d(-50%, 50%, 0) scale(500);
+    opacity: 0;
+  }
+}

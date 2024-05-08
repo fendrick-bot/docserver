@@ -8,42 +8,43 @@ import mainLogo from "@/public/mainlogo.png";
 import { useState, useEffect } from "react";
 import { TopNav } from "../TopNav/TopNav";
 import { BottomNav } from "../BottomNav/BottomNav";
+import { LoadingScreen } from "../LoadingScreen/LoadingScreen";
 
 export function GetStarted(props) {
   console.log(props.data);
   const [newUser, setUser] = useState(true);
+  const [isLoading, setLoading] = useState(true);
   useEffect(() => {
     if (localStorage.getItem("newUser") != null) {
       setUser(false);
     }
+    setLoading(false);
   }, []);
   function removeSplash() {
     localStorage.setItem("newUser", false);
     setUser(false);
   }
-  return newUser ? (
+  return isLoading ? (
+    <LoadingScreen />
+  ) : newUser ? (
     <div id="splash-page">
       <div id="big-logo">
         <Image
           src={mainLogo}
           alt="main logo"
-          width={0}
-          height={400}
-          style={{width:'100%'}}
+          style={{ width: "100%", height: "auto" }}
           unoptimized
-          priority
         />
       </div>
       <br />
       <br />
-      <h1 id="splash-sub-head">Share files easily with your friends</h1>
+      <h2 id="splash-sub-head">CLOUD PANDA</h2>
       <p id="splash-para-text">
-        Cloud Panda provides you the best services for uploading your files and
-        share them with your friends
+        Share files easily with your friends. cloud Panda provides you the best
+        services for uploading your files and share them with your friends
       </p>
-
       <button id="splash-start-button" onClick={removeSplash}>
-        Get Started ▶️
+        Get Started ▶
       </button>
     </div>
   ) : (
