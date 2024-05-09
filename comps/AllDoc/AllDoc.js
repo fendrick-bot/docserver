@@ -8,10 +8,13 @@ import { PdfBox } from "../PdfBox/PdfBox";
 export function AllDoc() {
   const [data, setData] = useState([]);
   useEffect(() => {
+
     async function retriveData() {
       let docs = await fetch("/api/retrive", { cache: 'no-store' });
       docs = await docs.json();
       setData(docs);
+      console.log(docs);
+      // revalidatePath('/')
     }
     retriveData();
   }, []);
