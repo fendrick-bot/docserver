@@ -9,7 +9,7 @@ export function AllDoc() {
   const [data, setData] = useState([]);
   useEffect(() => {
     async function retriveData() {
-      let docs = await fetch("/api/retrive");
+      let docs = await fetch("/api/retrive", { cache: 'no-store' });
       docs = await docs.json();
       setData(docs);
     }
@@ -38,7 +38,7 @@ export function AllDoc() {
 
   return (
     <div id="main-content">
-      <h2 style={{width:'88%',textAlign:'left'}}>All Files</h2>
+      <h2 style={{ width: "88%", textAlign: "left" }}>All Files</h2>
       <br />
       <div id="pdf-collection">
         {data.map((item) => (
