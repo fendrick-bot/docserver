@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { uploadConfig } from "@/helper/CloudUpload";
 import Link from "next/link";
+import { IoCloudUpload } from "react-icons/io5";
+import toast from "react-hot-toast";
 // import { uploadFile } from "@/helper/CloudUpload";
 
 export function Uploader() {
@@ -12,27 +14,27 @@ export function Uploader() {
   const [showUpload, hideUpload] = useState(true);
   const [showSuccess, setSuccess] = useState(false);
   const [progress, setProgress] = useState({ started: false, pc: 0 });
-  const [docDetail, setDetail] = useState({ title: null , owner : null });
+  const [docDetail, setDetail] = useState({ title: null, owner: null });
 
   let uploadDetail = {
     title: "Demo file",
     docUrl: " momomo ",
     owner: "Fendrick",
-    size: "0kb"
+    size: "0kb",
   };
 
   async function handleFileUpload(e) {
-    if(!docDetail.title || !docDetail.owner){
-      alert("Please fill the required details!")
+    if (!docDetail.title || !docDetail.owner) {
+      toast.error("Please fill the required details!");
       return;
     }
     if (!file) {
-      alert("No file selected!");
+      toast.error("No file selected!");
       return;
     }
     console.log(file.type);
-    if(file.type != "application/pdf") return alert("The selected file is not of the type pdf!");
-
+    if (file.type != "application/pdf")
+      return toast.error("The selected file is not of the type pdf!");
 
     const formData = new FormData();
     formData.append("file", file);
@@ -52,14 +54,18 @@ export function Uploader() {
       })
       .catch((err) => console.error(err));
 
-      console.log(res);
+    console.log(res);
 
     uploadDetail.docUrl = res.data.public_id;
     uploadDetail.title = docDetail.title;
     uploadDetail.owner = docDetail.owner;
 
     let fileSize = file.size.toString();
-    fileSize.length < 7 ? uploadDetail.size = `${Math.round(+fileSize/1024).toFixed(2)} KB` : uploadDetail.size =  `${(Math.round(+fileSize/1024)/1000).toFixed(2)} MB`;  
+    fileSize.length < 7
+      ? (uploadDetail.size = `${Math.round(+fileSize / 1024).toFixed(2)} KB`)
+      : (uploadDetail.size = `${(Math.round(+fileSize / 1024) / 1000).toFixed(
+          2
+        )} MB`);
 
     console.log(uploadDetail);
 
@@ -77,7 +83,7 @@ export function Uploader() {
       .then((res) => console.log(res))
       .catch((err) => console.error(err));
 
-      setSuccess(true);
+    setSuccess(true);
   }
 
   function abortUpload() {
@@ -85,13 +91,18 @@ export function Uploader() {
     setFile(null);
   }
 
-  return (
-    showSuccess? <div style={{paddingTop:"200px"}}>
+  return showSuccess ? (
+    <div style={{ paddingTop: "200px" }}>
       upload Successfull 🎉
-      <button onClick={()=>{window.location.reload()}}>upload more</button>
-
-      
-      </div> : 
+      <button
+        onClick={() => {
+          window.location.reload();
+        }}
+      >
+        upload more
+      </button>
+    </div>
+  ) : (
     <div id="uploadDiv">
       <br />
       <br />
@@ -99,7 +110,7 @@ export function Uploader() {
         <div class="upload-area__header">
           <h1 class="upload-area__title">Upload your file</h1>
           <p class="upload-area__paragraph">
-            File should be an image -
+            File should be an document -
             <strong class="upload-area__tooltip">
               Like
               <span class="upload-area__tooltip-data">.pdf</span>
@@ -107,13 +118,28 @@ export function Uploader() {
           </p>
         </div>
         <div>
-          <label htmlFor="title">Title </label>
-          <br />
-          <input type="text" value={docDetail.title} onChange={(e) => setDetail({...docDetail, title: e.target.value })} />
-          <label htmlFor="title">Uploader Name </label>
-          <br />
-          <input type="text" value={docDetail.owner} onChange={(e) => setDetail({...docDetail, owner: e.target.value })}/>
-          <br />
+          <div className="upload_input_div">
+            <label htmlFor="title">Title </label>
+            <input
+              className="upload_input"
+              type="text"
+              value={docDetail.title}
+              onChange={(e) =>
+                setDetail({ ...docDetail, title: e.target.value })
+              }
+            />
+          </div>
+          <div className="upload_input_div">
+            <label htmlFor="title">Uploader Name </label>
+            <input
+              className="upload_input"
+              type="text"
+              value={docDetail.owner}
+              onChange={(e) =>
+                setDetail({ ...docDetail, owner: e.target.value })
+              }
+            />
+          </div>
           {showUpload ? (
             <div>
               <div
@@ -189,12 +215,15 @@ export function Uploader() {
               </div>
             </div>
           )}
-          <button onClick={(e)=> handleFileUpload(e)} id="upload_btn"> upload</button>
+          <button onClick={(e) => handleFileUpload(e)} id="upload_btn">
+            {" "}
+            <IoCloudUpload />
+            Upload File
+          </button>
         </div>
       </div>
     </div>
-
-
-    // </div>
   );
+
+  // </div>
 }
