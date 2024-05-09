@@ -8,7 +8,7 @@ export async function GET() {
     
     try {
         let data = await Doc.find({});
-        // console.log(data);
+        console.log(data);
         return NextResponse.json(data);
         
         // return NextResponse.json({
