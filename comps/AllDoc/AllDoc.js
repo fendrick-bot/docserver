@@ -4,16 +4,13 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { PdfBox } from "../PdfBox/PdfBox";
+import retriver from "@/helper/retriver";
 
 export function AllDoc() {
   const [data, setData] = useState([]);
   useEffect(() => {
     async function retriveData() {
-      let docs = await fetch("/api/retrive", { cache: 'no-store' });
-      docs = await docs.json();
-      setData(docs);
-      console.log(docs);
-      // revalidatePath('/')
+      setData(await retriver());
     }
     retriveData();
   }, []);

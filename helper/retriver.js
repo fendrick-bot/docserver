@@ -1,14 +1,12 @@
 
-import axios from "axios";
-
-export default async function retriver(){
-    try {
-        let res = await axios.get("/api/retrive");
-        // res = await res.json();
-        console.log(res.data);
-        return res.data;
-    } catch (error) {
-        console.log(error);
-        return [];
-    }
+export default async function retriver() {
+  try {
+    let docs = await fetch("/api/retrive", { cache: "no-store" });
+    docs = await docs.json();
+    console.log(docs);
+    return docs;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
 }
