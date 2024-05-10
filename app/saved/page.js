@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { News_Cycle } from "next/font/google";
 import toast from "react-hot-toast";
+import { PdfBox } from "@/comps/PdfBox/PdfBox";
 
 export default function Saved() {
   
@@ -26,23 +27,22 @@ export default function Saved() {
   return (
     
     <div id="saved-main-div">
-      <br /><br /><br /><br />
-      <h1>Saved Document List</h1>
-            <br />
+      <h2>Saved Documents</h2>
 
             {
                 data.map((item)=>(
-                    <div key={"newDoc"}>
-                    <Link href={`/document/${item.docUrl}`} key={"newDoc"}>
-                        <h1 key={"newDoc"}>{item.title}</h1>
-                        <p key={"newDoc"}>{item.owner} <br /> {item.size} </p>
-                        <br />
-                        <br />
-                    </Link>
-                    <br />
-                        <button key={"newDoc"} onClick={()=> handleRemove(item) } >remove</button>
+                  <PdfBox data={item}  />
+                    // <div key={"newDoc"}>
+                    // <Link href={`/document/${item.docUrl}`} key={"newDoc"}>
+                    //     <h1 key={"newDoc"}>{item.title}</h1>
+                    //     <p key={"newDoc"}>{item.owner} <br /> {item.size} </p>
+                    //     <br />
+                    //     <br />
+                    // </Link>
+                    // <br />
+                    //     <button key={"newDoc"} onClick={()=> handleRemove(item) } >remove</button>
 
-                    </div>
+                    // </div>
 
                 ))
             }

@@ -7,7 +7,10 @@ import { uploadConfig } from "@/helper/CloudUpload";
 import Link from "next/link";
 import { IoCloudUpload } from "react-icons/io5";
 import toast from "react-hot-toast";
+import { RxCross2 } from "react-icons/rx";
 // import { uploadFile } from "@/helper/CloudUpload";
+import succesImg from "@/public/confetti-success.png";
+import Image from "next/image";
 
 export function Uploader() {
   const [file, setFile] = useState(null);
@@ -92,14 +95,21 @@ export function Uploader() {
   }
 
   return showSuccess ? (
-    <div style={{ paddingTop: "200px" }}>
-      upload Successfull 🎉
+    <div id="upload-success">
+      <Image src={succesImg} objectFit="contain" />
+      <br />
+      <h2>upload Success!</h2>
+      <p>
+        The file has been successfully uploaded. now anyone can access your file
+        from the document page or you can share the file to anyone...
+      </p>
       <button
+        id="upload-more"
         onClick={() => {
           window.location.reload();
         }}
       >
-        upload more
+       Upload Again!
       </button>
     </div>
   ) : (
@@ -186,29 +196,23 @@ export function Uploader() {
             </div>
           ) : (
             <div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  border: "1px solid black",
-                  borderRadius: "10px",
-                }}
-              >
-                <span class="" style={{ fontSize: "30px" }}>
+              <div id="file-box">
+                <span class="drop-zoon__icon" style={{ fontSize: "40px" }}>
                   <BsFillFileEarmarkPdfFill />
                 </span>
-                <div>
+                <div id="file-details">
                   <span>{file.name}</span>
-                  <br />
                   <progress
+                    id="progress"
                     max={100}
                     value={progress.pc}
-                    style={{ height: "6px", borderRadius: "60px" }}
                   ></progress>
-                  <span>{progress.pc} %</span>
+                  {/* <span>{progress.pc} %</span> */}
                 </div>
                 {progress.pc == 100 ? null : (
-                  <button onClick={abortUpload}>cancel</button>
+                  <button onClick={abortUpload} id="file-upload-cancel">
+                    <RxCross2 />
+                  </button>
                 )}
                 <br />
                 <br />
