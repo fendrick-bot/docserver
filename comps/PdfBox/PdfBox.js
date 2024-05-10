@@ -32,16 +32,17 @@ export function PdfBox({ data }) {
 
   return (
     <div
+    key={"pdfbox"}
       id="main-pdf-box"
       onClick={() => {
         router.push(`/document/${data.docUrl}`);
       }}
     >
-      <div className="pdfbox-logo">
+      <div className="pdfbox-logo" key={"pdf-box-logo"}>
         <BsFillFileEarmarkPdfFill />
       </div>
-      <h3 className="pdfbox-title">{data.title}</h3>
-      <button className="pdfbox-btn" onClick={() => handleSave(data)}>
+      <h3 className="pdfbox-title" key={"pdf-box-title"}>{data.title}</h3>
+      <button className="pdfbox-btn" onClick={() => handleSave(data)} key={"pdf-box-button"}>
         <CiStar />
       </button>
     </div>
