@@ -31,7 +31,7 @@ export default function Saved() {
 
             {
                 data.map((item)=>(
-                  <PdfBox data={item}  />
+                  <PdfBox data={item} key={"pdf-box-main"} />
                     // <div key={"newDoc"}>
                     // <Link href={`/document/${item.docUrl}`} key={"newDoc"}>
                     //     <h1 key={"newDoc"}>{item.title}</h1>
