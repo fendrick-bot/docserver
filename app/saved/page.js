@@ -43,10 +43,8 @@ export default function Saved() {
                     //     <button key={"newDoc"} onClick={()=> handleRemove(item) } >remove</button>
 
                     // </div>
-
                 ))
             }
-    
     </div>
   );
 }
