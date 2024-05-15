@@ -44,6 +44,7 @@ function PdfComp({ filename }) {
           .map((page) => {
             return (
               <Page
+              key={page}
                 pageNumber={page}
                 renderTextLayer={false}
                 renderAnnotationLayer={false}
