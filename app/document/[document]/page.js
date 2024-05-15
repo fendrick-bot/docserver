@@ -11,11 +11,7 @@ const PdfComp = dynamic(()=> import("@/app/document/[document]/pdfComp"),{
 // });
 export default function Profile({ params }) {
   return (
-    <main style={{display:"flex", flexDirection:"column" , alignItems:"center", justifyContent:"center"}}>
-      <br />
-      <br />
-      <br />
-      <h1>Bla bla bla</h1>
+    <main style={{display:"flex", flexDirection:"column" , alignItems:"center", justifyContent:"center", paddingTop:'100px'}}>
       <PdfComp filename={params.document} />
 
       {/* <embed src= {`https://res.cloudinary.com/djtt5oivu/image/upload/${params.document}.pdf`} type="application/pdf"  width= "450px" height= "650px" title="New Pdf" style={{background:"white"}}/> */}
