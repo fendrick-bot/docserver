@@ -18,7 +18,6 @@ nav hr{
 }
 
 .menu {
-  /* background: #9868ff; */
   width: 100%;
   padding: 13px 22px;
   display: flex;
@@ -37,13 +36,11 @@ nav hr{
   -webkit-user-select: none;
   -ms-user-select: none; 
   user-select: none;
-  /* box-shadow: 2px 2px 5px rgb(78, 120, 255); */
 }
 .menu-item.inactive {
   border-radius: 8px;
   background-color: white;
   border: none;
-  /* background-color: rgb(192, 179, 255) !important; */
 }
 .menu-item.inactive svg {
   color: #303030 !important;
@@ -73,4 +70,3 @@ nav hr{
   width: 30px;
   height: 30px;
 }
-

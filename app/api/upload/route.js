@@ -9,7 +9,6 @@ export async function POST(request) {
   try {
     const reqBody = await request.json();
     const {title , docUrl, owner,size } = reqBody;
-    console.log(title , docUrl, owner , size);
 
     const newDoc = new Doc({
       title,

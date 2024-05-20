@@ -13,12 +13,9 @@
 }
 
 #big-logo{
-    /* min-height: 400px; */
     width: fit-content;
     min-height: 300px;
-    /* height: 80%; */
     max-height: 400px;
-    
     overflow: hidden;
     border-radius: 20px;
     display: flex;

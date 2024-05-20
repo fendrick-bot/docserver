@@ -60,7 +60,6 @@
   max-width: 370px;
   background-color: var(--clr-white);
   box-shadow: 0 7px 30px rgb(182, 182, 182);
-  /* border: 2px solid var(--clr-light-blue); */
   border-radius: 12px;
   padding: 2rem 1.875rem 3rem 1.875rem;
   margin: 0.625rem;
@@ -317,11 +316,7 @@ progress::-webkit-progress-bar {
 .upload-area__file-details {
   height: auto;
   visibility: hidden;
-  /* opacity: 0; */
   text-align: left;
-  /* transition: none 500ms ease-in-out;
-  transition-property: opacity, visibility;
-  transition-delay: 500ms; */
 }
 
 /* (duploaded-file--open) Modifier Class */
@@ -343,9 +338,6 @@ progress::-webkit-progress-bar {
   align-items: center;
   padding: 0.625rem 0;
   visibility: hidden;
-  /* opacity: 100; */
-  /* transition: none 500ms ease-in-out;
-  transition-property: visibility, opacity; */
 }
 
 /* (duploaded-file--open) Modifier Class */

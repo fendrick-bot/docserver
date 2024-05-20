@@ -1,7 +1,5 @@
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import { BottomNav } from "@/comps/BottomNav/BottomNav";
-import { TopNav } from "@/comps/TopNav/TopNav";
 import { Toaster } from "react-hot-toast";
 import { GetStarted } from "@/comps/GetStarted/GetStarted";
 
@@ -28,7 +26,6 @@ export default function RootLayout({ children }) {
           "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
         }
       />
-
       <body className={poppins.className}>
         <div id="main-wrapper">
           <GetStarted data={children} />

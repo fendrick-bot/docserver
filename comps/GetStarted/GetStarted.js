@@ -1,7 +1,5 @@
 "use client";
 import "@/comps/GetStarted/GetStartedStyle.css";
-import { TbFileText } from "react-icons/tb";
-
 import Image from "next/image";
 import mainLogo from "@/public/mainlogo.png";
 
@@ -11,7 +9,6 @@ import { BottomNav } from "../BottomNav/BottomNav";
 import { LoadingScreen } from "../LoadingScreen/LoadingScreen";
 
 export function GetStarted(props) {
-  console.log(props.data);
   const [newUser, setUser] = useState(true);
   const [isLoading, setLoading] = useState(true);
   useEffect(() => {
@@ -19,10 +16,10 @@ export function GetStarted(props) {
       setUser(false);
     }
     function myStopFunction() {
-        setLoading(false);
-        clearTimeout(myTimeout);
-      }
-      const myTimeout = setTimeout(myStopFunction, 2000);
+      setLoading(false);
+      clearTimeout(myTimeout);
+    }
+    const myTimeout = setTimeout(myStopFunction, 1000);
   }, []);
   function removeSplash() {
     localStorage.setItem("newUser", false);

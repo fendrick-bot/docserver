@@ -1,5 +1,4 @@
 import "@/comps/TopNav/TopNavStyle.css";
-import { TbFileText } from "react-icons/tb";
 
 import Image from "next/image";
 import mainLogo from "@/public/mainlogo.png";

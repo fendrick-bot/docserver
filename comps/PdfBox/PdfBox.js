@@ -1,15 +1,31 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { RxCross2 } from "react-icons/rx";
 
 import "@/comps/PdfBox/PdfBoxStyle.css";
 import { CiStar } from "react-icons/ci";
 import { BsFillFileEarmarkPdfFill } from "react-icons/bs";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import retriver from "@/helper/retriver";
+import { FaStar } from "react-icons/fa";
 
-export function PdfBox({ data }) {
-  const router = useRouter()
-  const [title, setTitle] = useState("");
+export function PdfBox({ type }) {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    async function retriveData() {
+      if (type == 2) {
+        let savedDoc = JSON.parse(localStorage.getItem("saved")) || [];
+        setData(savedDoc);
+      } else {
+        setData(await retriver());
+      }
+    }
+    retriveData();
+  }, []);
+
+  const router = useRouter();
   function handleSave(item) {
     let savedDoc = JSON.parse(localStorage.getItem("saved")) || [];
     const newDoc = {
@@ -29,22 +45,76 @@ export function PdfBox({ data }) {
     } else toast.error("File already Added!");
     localStorage.setItem("saved", JSON.stringify(savedDoc));
   }
+  function handleRemove(item) {
+    let savedDoc = JSON.parse(localStorage.getItem("saved")) || [];
+    const newSaved = savedDoc.filter((elem) => elem.docUrl !== item.docUrl);
+    setData(newSaved);
+    localStorage.setItem("saved", JSON.stringify(newSaved));
+    toast.success("Removed from saved!");
+  }
+
+  function checkSaved(url) {
+    let savedDoc = JSON.parse(localStorage.getItem("saved")) || [];
+    savedDoc.forEach((elem) => {
+      if (elem.docUrl === url) {
+        return true;
+      }
+    });
+    return false;
+  }
 
   return (
-    <div
-    key={"pdfbox"}
-      id="main-pdf-box"
-      onClick={() => {
-        router.push(`/document/${data.docUrl}`);
-      }}
-    >
-      <div className="pdfbox-logo" key={"pdf-box-logo"}>
-        <BsFillFileEarmarkPdfFill />
-      </div>
-      <h3 className="pdfbox-title" key={"pdf-box-title"}>{data.title}</h3>
-      <button className="pdfbox-btn" onClick={() => handleSave(data)} key={"pdf-box-button"}>
-        <CiStar />
-      </button>
-    </div>
+    <>
+      {data.map((item) => (
+        <div key={'pdf-box-' + item.docUrl} id="main-pdf-box">
+          <div
+            className="pdfbox-logo"
+            key={"pdf-box-logo" + item.docUrl}
+            onClick={() => {
+              router.push(`/document/${item.docUrl}`);
+            }}
+          >
+            <BsFillFileEarmarkPdfFill />
+          </div>
+          <h3
+            className="pdfbox-title"
+            key={"pdf-box-title" + item.title}
+            onClick={() => {
+              router.push(`/document/${item.docUrl}`);
+            }}
+          >
+            {item.title}
+          </h3>
+          {type == 2 ? (
+            <button
+              onClick={() => handleRemove(item)}
+              className="pdfbox-btn"
+              style={{
+                color: "rgb(255, 84, 84)",
+                backgroundColor: "#ffcece",
+              }}
+            >
+              <RxCross2 />
+            </button>
+          ) : checkSaved(item.docUrl) ? (
+            <button
+              className="pdfbox-btn"
+              onClick={() => handleSave(item)}
+              key={"pdf-box-button"}
+            >
+              <FaStar />
+            </button>
+          ) : (
+            <button
+              className="pdfbox-btn"
+              onClick={() => handleSave(item)}
+              key={"pdf-box-button"}
+            >
+              <CiStar />
+            </button>
+          )}
+        </div>
+      ))}
+    </>
   );
 }

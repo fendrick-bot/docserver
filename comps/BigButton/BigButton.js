@@ -1,4 +1,3 @@
-
 import "@/comps/BigButton/BigButtonStyle.css"
 export function BigButton(){
     return(

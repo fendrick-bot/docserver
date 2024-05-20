@@ -1,7 +1,6 @@
 "use client";
-import { useEffect, useState } from "react";
+import {useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
-// import assign from "@/public/assignment.pdf
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
@@ -9,18 +8,11 @@ function PdfComp({ filename }) {
   const [url, setUrl] = useState(
     `https://res.cloudinary.com/djtt5oivu/image/upload/${filename}.pdf`
   );
-  console.log(url);
-
-  // useEffect( async()=>{
-  //     await setUrl(`https://res.cloudinary.com/djtt5oivu/image/upload/${filename}.pdf`);
-  // }, [])
   const [numPages, setNumPages] = useState();
-  const [pageNumber, setPageNumber] = useState(1);
 
   function onDocumentLoadSuccess({ numPages }) {
     setNumPages(numPages);
   }
-
   return (
     <div
       style={{
@@ -56,5 +48,4 @@ function PdfComp({ filename }) {
     </div>
   );
 }
-
 export default PdfComp;

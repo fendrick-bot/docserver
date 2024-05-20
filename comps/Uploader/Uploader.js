@@ -1,14 +1,12 @@
 "use client";
 import "@/comps/Uploader/UploaderStyle.css";
 import { BsFillFileEarmarkPdfFill } from "react-icons/bs";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useRef, useState } from "react";
+import axios, {CancelToken, isCancel } from "axios";
 import { uploadConfig } from "@/helper/CloudUpload";
-import Link from "next/link";
 import { IoCloudUpload } from "react-icons/io5";
 import toast from "react-hot-toast";
 import { RxCross2 } from "react-icons/rx";
-// import { uploadFile } from "@/helper/CloudUpload";
 import succesImg from "@/public/confetti-success.png";
 import Image from "next/image";
 
@@ -17,7 +15,9 @@ export function Uploader() {
   const [showUpload, hideUpload] = useState(true);
   const [showSuccess, setSuccess] = useState(false);
   const [progress, setProgress] = useState({ started: false, pc: 0 });
-  const [docDetail, setDetail] = useState({ title: null, owner: null });
+  const [docDetail, setDetail] = useState({ title: "", owner: "" });
+  const cancelUpload = useRef(null);
+  const [cancel, setCancel] = useState(false);
 
   let uploadDetail = {
     title: "Demo file",
@@ -27,6 +27,7 @@ export function Uploader() {
   };
 
   async function handleFileUpload(e) {
+    setCancel(false);
     if (!docDetail.title || !docDetail.owner) {
       toast.error("Please fill the required details!");
       return;
@@ -35,9 +36,12 @@ export function Uploader() {
       toast.error("No file selected!");
       return;
     }
-    console.log(file.type);
+
     if (file.type != "application/pdf")
       return toast.error("The selected file is not of the type pdf!");
+
+    if (file.size > 10485760)
+      return toast.error("The selected file is too big!");
 
     const formData = new FormData();
     formData.append("file", file);
@@ -46,6 +50,9 @@ export function Uploader() {
 
     const res = await axios
       .post(uploadConfig.url, formData, {
+        cancelToken: await new CancelToken(
+          (cancel) => (cancelUpload.current = cancel)
+        ),
         onUploadProgress: (progressEvent) => {
           setProgress((prevState) => {
             return {
@@ -55,48 +62,58 @@ export function Uploader() {
           });
         },
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        if (isCancel(err)) {
+          toast.error("upload cancelled!");
+        }
+      });
 
-    console.log(res);
 
-    uploadDetail.docUrl = res.data.public_id;
-    uploadDetail.title = docDetail.title;
-    uploadDetail.owner = docDetail.owner;
+    if (res) {
+      uploadDetail.docUrl = res.data.public_id;
+      uploadDetail.title = docDetail.title;
+      uploadDetail.owner = docDetail.owner;
 
-    let fileSize = file.size.toString();
-    fileSize.length < 7
-      ? (uploadDetail.size = `${Math.round(+fileSize / 1024).toFixed(2)} KB`)
-      : (uploadDetail.size = `${(Math.round(+fileSize / 1024) / 1000).toFixed(
-          2
-        )} MB`);
+      let fileSize = file.size.toString();
+      fileSize.length < 7
+        ? (uploadDetail.size = `${Math.round(+fileSize / 1024).toFixed(2)} KB`)
+        : (uploadDetail.size = `${(Math.round(+fileSize / 1024) / 1000).toFixed(
+            2
+          )} MB`);
 
-    console.log(uploadDetail);
-
-    await axios
-      .post("/api/upload", uploadDetail, {
-        onUploadProgress: (progressEvent) => {
-          setProgress((prevState) => {
-            return {
-              ...prevState,
-              pc: +Math.round(90 + progressEvent.progress * 10, 100),
-            };
-          });
-        },
-      })
-      .then((res) => console.log(res))
-      .catch((err) => console.error(err));
-
-    setSuccess(true);
+      await axios
+        .post("/api/upload", uploadDetail, {
+          onUploadProgress: (progressEvent) => {
+            setProgress((prevState) => {
+              return {
+                ...prevState,
+                pc: +Math.round(90 + progressEvent.progress * 10, 100),
+              };
+            });
+          },
+        })
+      setSuccess(true);
+    }
   }
 
   function abortUpload() {
+    if (cancelUpload.current) {
+      setCancel(true);
+      cancelUpload.current("upload Cancelled");
+    }
+    setProgress((prevState) => {
+      return {
+        ...prevState,
+        pc: 0,
+      };
+    });
     hideUpload(true);
     setFile(null);
   }
 
   return showSuccess ? (
     <div id="upload-success">
-      <Image src={succesImg} objectFit="contain" />
+      <Image src={succesImg} objectFit="contain" alt="success upload"  priority/>
       <br />
       <h2>upload Success!</h2>
       <p>
@@ -109,21 +126,21 @@ export function Uploader() {
           window.location.reload();
         }}
       >
-       Upload Again!
+        Upload Again!
       </button>
     </div>
   ) : (
     <div id="uploadDiv">
       <br />
       <br />
-      <div id="uploadArea" class="upload-area">
-        <div class="upload-area__header">
-          <h1 class="upload-area__title">Upload your file</h1>
-          <p class="upload-area__paragraph">
+      <div id="uploadArea" className="upload-area">
+        <div className="upload-area__header">
+          <h1 className="upload-area__title">Upload your file</h1>
+          <p className="upload-area__paragraph">
             File should be an document -
-            <strong class="upload-area__tooltip">
+            <strong className="upload-area__tooltip">
               Like
-              <span class="upload-area__tooltip-data">.pdf</span>
+              <span className="upload-area__tooltip-data">.pdf</span>
             </strong>
           </p>
         </div>
@@ -154,39 +171,36 @@ export function Uploader() {
             <div>
               <div
                 id="dropZoon"
-                class="upload-area__drop-zoon drop-zoon"
+                className="upload-area__drop-zoon drop-zoon"
                 onDragOver={(e) => e.preventDefault()}
                 onDrop={(e) => handleDrop(e)}
                 onClick={(e) => {
                   fileInput.click();
                 }}
               >
-                <span class="drop-zoon__icon">
+                <span className="drop-zoon__icon">
                   <BsFillFileEarmarkPdfFill />
                 </span>
-                <p class="drop-zoon__paragraph">
+                <p className="drop-zoon__paragraph">
                   Drop your file here or Click to browse
                 </p>
-                <span id="loadingText" class="drop-zoon__loading-text">
+                <span id="loadingText" className="drop-zoon__loading-text">
                   Please Wait
                 </span>
                 <img
                   src=""
                   alt="Preview Image"
                   id="previewImage"
-                  class="drop-zoon__preview-image"
+                  className="drop-zoon__preview-image"
                   draggable="false"
                 ></img>
                 <input
                   type="file"
                   id="fileInput"
-                  class="drop-zoon__file-input"
+                  className="drop-zoon__file-input"
                   accept=".pdf"
                   onChange={(e) => {
                     setFile(e.target.files[0]);
-                    // const path =  (window.URL || window.webkitURL).createObjectURL(file);
-                    // setPath(path);
-                    console.log(e.target.files[0]);
                     hideUpload(false);
                     document.getElementById("upload_btn").disabled = false;
                   }}
@@ -197,7 +211,7 @@ export function Uploader() {
           ) : (
             <div>
               <div id="file-box">
-                <span class="drop-zoon__icon" style={{ fontSize: "40px" }}>
+                <span className="drop-zoon__icon" style={{ fontSize: "40px" }}>
                   <BsFillFileEarmarkPdfFill />
                 </span>
                 <div id="file-details">
@@ -207,9 +221,8 @@ export function Uploader() {
                     max={100}
                     value={progress.pc}
                   ></progress>
-                  {/* <span>{progress.pc} %</span> */}
                 </div>
-                {progress.pc == 100 ? null : (
+                {progress.pc == 90 ? null : (
                   <button onClick={abortUpload} id="file-upload-cancel">
                     <RxCross2 />
                   </button>
@@ -228,6 +241,4 @@ export function Uploader() {
       </div>
     </div>
   );
-
-  // </div>
 }
