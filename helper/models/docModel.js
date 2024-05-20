@@ -24,4 +24,3 @@ const docSchema = new mongoose.Schema({
 
 const Doc = mongoose.models.Docs || mongoose.model("Docs" , docSchema);
 export default Doc;
-

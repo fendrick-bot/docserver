@@ -23,7 +23,7 @@ export function PdfBox({ type }) {
       }
     }
     retriveData();
-  }, []);
+  }, [type]);
 
   const router = useRouter();
   function handleSave(item) {
