@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import retriver from "@/helper/retriver";
 import { FaStar } from "react-icons/fa";
-
+import axios from "axios";
 export function PdfBox({ type }) {
   const [data, setData] = useState([]);
 
@@ -19,7 +19,20 @@ export function PdfBox({ type }) {
         let savedDoc = JSON.parse(localStorage.getItem("saved")) || [];
         setData(savedDoc);
       } else {
-        const res = await fetch("/api/retrive",  {next: { revalidate: 0 }, cache:'no-store' } );
+        const res = await fetch('/api/retrive', {
+          method:"POST",
+          cache:'no-cache',
+          body: null
+        })
+        // axios.post("/api/retrive", null).then(res => {
+        //   const data = res.json();
+        //   console.log(data);
+        //   setData(data);
+        // }).catch( err =>{
+        //   const data = [];
+        //   setData(data);
+        // })
+        // const res = await fetch("/api/retrive",  {next: { revalidate: 0 }, cache:'no-store' } );
         const data = await res.json();
         setData(data);
       }
