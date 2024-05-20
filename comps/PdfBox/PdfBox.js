@@ -19,7 +19,7 @@ export function PdfBox({ type }) {
         let savedDoc = JSON.parse(localStorage.getItem("saved")) || [];
         setData(savedDoc);
       } else {
-        const res = await fetch("/api/retrive",  {next: { revalidate: false } } );
+        const res = await fetch("/api/retrive",  {next: { revalidate: 0 }, cache:'no-store' } );
         const data = await res.json();
         setData(data);
       }
