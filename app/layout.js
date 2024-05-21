@@ -16,7 +16,7 @@ export const metadata = {
   content:
     "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0",
 };
-export const fetchCache = 'force-no-store';
+export const fetchCache = "force-no-store";
 
 export default function RootLayout({ children }) {
   return (
@@ -27,6 +27,9 @@ export default function RootLayout({ children }) {
           "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
         }
       />
+      <head>
+      <link rel="shortcut icon" href="/favicon.ico" />
+      </head>
       <body className={poppins.className}>
         <div id="main-wrapper">
           <GetStarted data={children} />
