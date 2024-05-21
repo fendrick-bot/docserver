@@ -19,23 +19,13 @@ export function PdfBox({ type }) {
         let savedDoc = JSON.parse(localStorage.getItem("saved")) || [];
         setData(savedDoc);
       } else {
-        let res = await fetch('/api/upload', {
+        let res = await fetch('/api/retrive', {
           next:{
             revalidate: 10
           },
-          // method:"POST",
           cache:'no-cache',
-          // body: null
+
         })
-        // axios.post("/api/retrive", null).then(res => {
-        //   const data = res.json();
-        //   console.log(data);
-        //   setData(data);
-        // }).catch( err =>{
-        //   const data = [];
-        //   setData(data);
-        // })
-        // const res = await fetch("/api/retrive",  {next: { revalidate: 0 }, cache:'no-store' } );
         res = await res.json();
         setData(res.data);
       }
