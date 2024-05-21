@@ -12,8 +12,8 @@ export async function GET(request) {
     // 'CDN-Cache-Control': 'public, s-maxage=60',
     // 'Vercel-CDN-Cache-Control': 'public, s-maxage=3600',})
     // return res
-   
-    return NextResponse.json(data);
+
+    return NextResponse.json({ message: "retrive success", success: true, data });
     // return NextResponse.setHeader("Cache-Control", "public, s-maxage=0").json(
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
