@@ -2,7 +2,7 @@
 import "@/comps/Uploader/UploaderStyle.css";
 import { BsFillFileEarmarkPdfFill } from "react-icons/bs";
 import { useRef, useState } from "react";
-import axios, {CancelToken, isCancel } from "axios";
+import axios, { CancelToken, isCancel } from "axios";
 import { uploadConfig } from "@/helper/CloudUpload";
 import { IoCloudUpload } from "react-icons/io5";
 import toast from "react-hot-toast";
@@ -68,7 +68,6 @@ export function Uploader() {
         }
       });
 
-
     if (res) {
       uploadDetail.docUrl = res.data.public_id;
       uploadDetail.title = docDetail.title;
@@ -81,17 +80,16 @@ export function Uploader() {
             2
           )} MB`);
 
-      await axios
-        .post("/api/upload", uploadDetail, {
-          onUploadProgress: (progressEvent) => {
-            setProgress((prevState) => {
-              return {
-                ...prevState,
-                pc: +Math.round(90 + progressEvent.progress * 10, 100),
-              };
-            });
-          },
-        })
+      await axios.post("/api/upload", uploadDetail, {
+        onUploadProgress: (progressEvent) => {
+          setProgress((prevState) => {
+            return {
+              ...prevState,
+              pc: +Math.round(90 + progressEvent.progress * 10, 100),
+            };
+          });
+        },
+      });
       setSuccess(true);
     }
   }
@@ -113,7 +111,12 @@ export function Uploader() {
 
   return showSuccess ? (
     <div id="upload-success">
-      <Image src={succesImg} objectFit="contain" alt="success upload"  priority/>
+      <Image
+        src={succesImg}
+        objectFit="contain"
+        alt="success upload"
+        priority
+      />
       <br />
       <h2>upload Success!</h2>
       <p>
@@ -172,8 +175,8 @@ export function Uploader() {
               <div
                 id="dropZoon"
                 className="upload-area__drop-zoon drop-zoon"
-                onDragOver={(e) => e.preventDefault()}
-                onDrop={(e) => handleDrop(e)}
+                // onDragOver={(e) => fileInput.onDrop()}
+                // onDrop={(e) => fileInput.onDrag()}
                 onClick={(e) => {
                   fileInput.click();
                 }}
@@ -199,6 +202,16 @@ export function Uploader() {
                   id="fileInput"
                   className="drop-zoon__file-input"
                   accept=".pdf"
+                  onDrop={(e) => {
+                    setFile(e.target.files[0]);
+                    hideUpload(false);
+                    document.getElementById("upload_btn").disabled = false;
+                  }}
+                  onDrag={(e) => {
+                    setFile(e.target.files[0]);
+                    hideUpload(false);
+                    document.getElementById("upload_btn").disabled = false;
+                  }}
                   onChange={(e) => {
                     setFile(e.target.files[0]);
                     hideUpload(false);
