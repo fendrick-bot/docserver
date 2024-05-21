@@ -20,9 +20,9 @@ export function PdfBox({ type }) {
         setData(savedDoc);
       } else {
         const res = await fetch('/api/retrive', {
-          method:"POST",
+          // method:"POST",
           cache:'no-cache',
-          body: null
+          // body: null
         })
         // axios.post("/api/retrive", null).then(res => {
         //   const data = res.json();
