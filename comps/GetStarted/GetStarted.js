@@ -19,7 +19,7 @@ export function GetStarted(props) {
       setLoading(false);
       clearTimeout(myTimeout);
     }
-    const myTimeout = setTimeout(myStopFunction, 1000);
+    const myTimeout = setTimeout(myStopFunction, 2000);
   }, []);
   function removeSplash() {
     localStorage.setItem("newUser", false);
