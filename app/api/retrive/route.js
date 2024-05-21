@@ -3,10 +3,9 @@ import Doc from "@/helper/models/docModel";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 
-connect();
-export async function POST(request) {
+export async function GET(request) {
+  await connect();
   console.log("running api");
-
   try {
     let data = await Doc.find({});
     // let res = NextResponse( data, headers:{'Cache-Control': 'public, s-maxage=1',
