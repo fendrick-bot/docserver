@@ -1,5 +1,5 @@
 "use client";
-import {useState } from "react";
+import { useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
@@ -16,14 +16,18 @@ function PdfComp({ filename }) {
   return (
     <div
       style={{
-        width: "400px",
+        boxSizing:'border-box',
+        // maxWidth: "400px",
+        width:'400px',
+        maxWidth:'80%',
         height: "fit-content",
-        backgroundColor: "white",
-        border: "1px solid black",
-        borderRadius: "6px",
-        overflowY: "scroll",
+        backgroundColor: "lightgray",
+        padding: " 3px 5px",
+        // border: "1px solid black",
+        // borderRadius: "6px",
+        overflowY: "auto",
         overflowX: "hidden",
-        height: "75vh",
+        height: "70vh",
       }}
     >
       <Document
@@ -35,13 +39,16 @@ function PdfComp({ filename }) {
           .map((x, i) => i + 1)
           .map((page) => {
             return (
-              <Page
-              key={page}
-                pageNumber={page}
-                renderTextLayer={false}
-                renderAnnotationLayer={false}
-                width={390}
-              />
+              <>
+                <Page
+                  key={page}
+                  pageNumber={page}
+                  renderTextLayer={false}
+                  renderAnnotationLayer={false}
+                  width={370}
+                />
+                <br />
+              </>
             );
           })}
       </Document>

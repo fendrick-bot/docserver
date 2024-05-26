@@ -5,6 +5,7 @@ export default function Saved() {
   return (
     <div id="saved-main-div">
       <h2>Saved Documents</h2>
+      <br />
       <PdfBox type={2} key={"pdf-box-main"} />
     </div>
   );

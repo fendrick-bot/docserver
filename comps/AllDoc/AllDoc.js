@@ -4,7 +4,7 @@ import { PdfBox } from "../PdfBox/PdfBox";
 export function AllDoc() {
   return (
     <div id="main-content">
-      <h2 style={{ width: "88%", textAlign: "left" }}>All Files</h2>
+      <h2 style={{ width: "80%", textAlign: "left" }}>All Files</h2>
       <br />
       <div id="pdf-collection">
         <PdfBox type={1} />

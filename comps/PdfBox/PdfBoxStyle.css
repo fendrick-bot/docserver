@@ -10,14 +10,14 @@
     box-shadow: 1px 4px 10px rgb(180, 180, 180);
     cursor: pointer;
     margin: 7px 0;
-    max-width: 380px;
+    max-width: 360px;
 }
 #main-pdf-box:hover{
     box-shadow: 1px 4px 17px rgb(161, 161, 161);
 }
 .pdfbox-title{
     font-weight: 300;
-    width: 95%;
+    width: 75%;
     max-width: 260px;
     height: 60px;
     overflow: hidden;
